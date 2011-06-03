@@ -39,8 +39,9 @@
 <body>
 <?
 date_default_timezone_set('America/Los_Angeles');
-$now = getdate();
-if ($now['weekday'] == 'Friday' && $now['hours'] >= '16' && $now['hours'] <= '18'): ?>
+include('functions.php');
+$teatime = is_teatime(getdate());
+if ($teatime): ?>
 YES</div>";
 <? else: ?>
 NO</div><div class="link"><a href="timer/">how long?</a></div>
