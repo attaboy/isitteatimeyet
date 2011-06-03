@@ -80,7 +80,7 @@ else: ?>
         updateString += (updateString ? ', ' : '') + secondsLeft + (secondsLeft === 1 ? ' second' : ' seconds');
       }
       if (!updateString) {
-        window.reload();
+        window.location.reload();
       }
       $left.html('You need to wait ' + updateString + '.');
 
@@ -95,7 +95,7 @@ else: ?>
             hoursLeft = 23;
             daysLeft--;
             if (daysLeft < 0) {
-              window.reload();
+              window.location.reload();
             }
           }
         }
