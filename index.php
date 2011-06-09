@@ -2,49 +2,17 @@
 <html>
 <head>
 	<title>Is It Tea Time Yet?</title>
-	<style>
-	  body {
-	    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
-	    font-weight: 100;
-	    margin-top: 150px;
-	  }
-	  div {
-	    margin: 50px auto;
-	    font-size: 150px;
-	    text-align: center;
-	    width: 3em;
-	    letter-spacing: .05em;
-	  }
-	  div.link {
-	    position: fixed;
-	    bottom: 0;
-	    left: 0;
-	    right: 0;
-	    font-size: 16px;
-	    width: auto;
-	    font-weight: 200;
-	    margin-bottom: 30px;
-	  }
-	  a {
-	    text-decoration: none;
-	    color: #CCC;
-	  }
-
-	  a:hover {
-	    color: red;
-	  }
-	</style>
+	<link href="default.css" rel="stylesheet" type="text/css" media="all" charset="utf-8" />
 </head>
-<div>
 <body>
 <?
 date_default_timezone_set('America/Los_Angeles');
 include('functions.php');
 $teatime = is_teatime(getdate());
 if ($teatime): ?>
-YES</div>;
+<div class="answer yes">Yes!</div>
 <? else: ?>
-NO</div><div class="link"><a href="timer/">how long?</a></div>
+<div class="answer no">NO</div><div class="link"><a href="timer/">how long?</a></div>
 <? endif; ?>
 <script type="text/javascript">
 

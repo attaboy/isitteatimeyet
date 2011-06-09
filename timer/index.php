@@ -2,20 +2,14 @@
 <html>
 <head>
   <title>Is It Tea Time Yet?</title>
+  <link href="../default.css" rel="stylesheet" type="text/css" media="all" charset="utf-8" />
   <style>
     body {
-      font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
-      font-weight: 100;
       margin-top: 200px;
     }
     div {
-      margin: 50px auto 0;
-      font-size: 150px;
-      text-align: center;
-      width: 3em;
-      letter-spacing: .05em;
+      margin-bottom: 0;
     }
-
     #left {
       font-size: 30px;
       width: 30em;
@@ -31,10 +25,10 @@ date_default_timezone_set('America/Los_Angeles');
 $now = getdate();
 
 if ($now['weekday'] == 'Friday' && $now['hours'] >= '16' && $now['hours'] <= '18'): ?>
-  <div id="answer">YES!</div> <?
+  <div class="answer yes">Yes!</div> <?
 
 else: ?>
-  <div id="answer">NO</div> <?
+  <div class="answer no">NO</div> <?
 
   $weekday = $now['wday'];
   $hour = $now['hours'];

@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'MarketingScriptRegular';
+    src: url('fonts/MarketingScript-webfont.eot');
+    src: url('fonts/MarketingScript-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/MarketingScript-webfont.woff') format('woff'),
+         url('fonts/MarketingScript-webfont.ttf') format('truetype'),
+         url('fonts/MarketingScript-webfont.svg#MarketingScriptRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  margin-top: 150px;
+}
+.yes {
+  font-family: 'MarketingScriptRegular', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  letter-spacing: -1px;
+}
+
+div {
+  margin: 50px auto;
+  font-size: 150px;
+  text-align: center;
+  width: 3em;
+  letter-spacing: .05em;
+}
+div.link {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 16px;
+  width: auto;
+  font-weight: 200;
+  margin-bottom: 30px;
+}
+a {
+  text-decoration: none;
+  color: #CCC;
+}
+
+a:hover {
+  color: red;
+}
