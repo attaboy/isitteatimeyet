@@ -6,6 +6,7 @@ $teatime = is_teatime(getdate());
 
 switch($format) {
   case 'json':
+    header('Content-type: application/json');
     echo json_encode(array('teatime' => $teatime));
     break;
   case 'xml':
