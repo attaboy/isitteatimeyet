@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
 include('../functions.php');
-$format = $_GET['format'] || 'json';
+$format = $_GET['format'] ? $_GET['format'] : 'json';
 $teatime = is_teatime(getdate());
 
 switch($format) {
