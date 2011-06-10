@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule "/api/1/teatime.(\w+)" "/api/isitteatimeyet.php?format=$1"
