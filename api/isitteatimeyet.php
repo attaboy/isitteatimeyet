@@ -8,7 +8,11 @@ $teatime = is_teatime($now);
 switch($format) {
   case 'json':
     header('Content-type: application/json');
-    echo json_encode(array('teatime' => $teatime, 'remaining' => remaining($now)));
+    $rsp = json_encode(array('teatime' => $teatime, 'remaining' => remaining($now)));
+    if ($_GET['callback'] && isValidJSONPCallback($_GET['callback'])) {
+      $rsp = $_GET['callback'] . "($rsp);";
+    }
+    echo $rsp;
     break;
   case 'xml':
     header('Content-type: text/xml');
