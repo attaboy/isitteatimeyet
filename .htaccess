@@ -1,2 +1,3 @@
+Options FollowSymLinks
 RewriteEngine on
-RewriteRule api/1/teatime.(\w+) api/isitteatimeyet.php?format=$1
+RewriteRule ^api/1/teatime\.(.+)$ api/isitteatimeyet.php?format=$1 [L]
