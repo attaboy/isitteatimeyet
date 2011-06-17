@@ -22,44 +22,36 @@
 <?
 
 date_default_timezone_set('America/Los_Angeles');
+include("../functions.php");
 $now = getdate();
+$teatime = is_teatime($now);
 
-if ($now['weekday'] == 'Friday' && $now['hours'] >= '16' && $now['hours'] <= '18'): ?>
+if ($teatime): ?>
   <div class="answer yes">Yes!</div> <?
 
 else: ?>
   <div class="answer no">NO</div> <?
 
-  $weekday = $now['wday'];
-  $hour = $now['hours'];
-  $minute = $now['minutes'];
-  $second = $now['seconds'];
-
-  $daysLeft = 5 - $weekday;
-  if ($hour >= 16) {
-    $daysLeft -= 1;
-  }
-  if ($daysLeft < 0) {
-    $daysLeft += 7;
-  }
-  $hoursLeft = 15 - $hour;
-  if ($hoursLeft < 0) {
-    $hoursLeft += 24;
-  }
-  $minutesLeft = 59 - $minute;
-  $secondsLeft = 59 - $second;
+  $remaining = remaining($now);
   ?>
-  <script>
-  var daysLeft = <?=$daysLeft?>;
-  var hoursLeft = <?=$hoursLeft?>;
-  var minutesLeft = <?=$minutesLeft?>;
-  var secondsLeft = <?=$secondsLeft?>;
-  </script>
   <div id="left"></div>
   <script>
+    var data = {};
     var $left = $('#left');
 
+    function fetchData() {
+      $.getJSON("../api/1/teatime.json", function(apiData) {
+        data = apiData;
+        update();
+      });
+    }
+
     function update() {
+      daysLeft = data.days;
+      hoursLeft = data.hours;
+      minutesLeft = data.minutes;
+      secondsLeft = data.seconds;
+
       var updateString = '';
       if (daysLeft) {
         updateString += daysLeft + (daysLeft === 1 ? ' day' : ' days');
@@ -97,7 +89,7 @@ else: ?>
       window.setTimeout(update, 1000);
     }
 
-    update();
+    fetchData();
   </script><?
 endif; ?>
 <script type="text/javascript">

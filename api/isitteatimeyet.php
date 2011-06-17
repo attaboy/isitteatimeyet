@@ -2,12 +2,13 @@
 date_default_timezone_set('America/Los_Angeles');
 include('../functions.php');
 $format = $_GET['format'] ? $_GET['format'] : 'json';
-$teatime = is_teatime(getdate());
+$now = getdate();
+$teatime = is_teatime($now);
 
 switch($format) {
   case 'json':
     header('Content-type: application/json');
-    echo json_encode(array('teatime' => $teatime));
+    echo json_encode(array('teatime' => $teatime, 'remaining' => remaining($now)));
     break;
   case 'xml':
     header('Content-type: text/xml');
