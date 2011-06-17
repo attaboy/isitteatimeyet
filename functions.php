@@ -30,3 +30,7 @@ function remaining($date_array) {
     'seconds' => $secondsLeft
   );
 }
+
+function isValidJSONPCallback($callback) {
+  return preg_match('/^[a-z$_][a-z0-9_$]*$/', $callback);
+}
