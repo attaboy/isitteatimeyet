@@ -36,21 +36,25 @@ else: ?>
   ?>
   <div id="left"></div>
   <script>
-    var data = {};
+    var data = { remaining: {}};
+    var daysLeft;
+    var hoursLeft;
+    var minutesLeft;
+    var secondsLeft;
     var $left = $('#left');
 
     function fetchData() {
       $.getJSON("../api/1/teatime.json", function(apiData) {
         data = apiData;
+        daysLeft = data.remaining.days;
+        hoursLeft = data.remaining.hours;
+        minutesLeft = data.remaining.minutes;
+        secondsLeft = data.remaining.seconds;
         update();
       });
     }
 
     function update() {
-      daysLeft = data.days;
-      hoursLeft = data.hours;
-      minutesLeft = data.minutes;
-      secondsLeft = data.seconds;
 
       var updateString = '';
       if (daysLeft) {
