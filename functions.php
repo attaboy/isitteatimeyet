@@ -32,5 +32,5 @@ function remaining($date_array) {
 }
 
 function isValidJSONPCallback($callback) {
-  return preg_match('/^[a-z$_][a-z0-9_$]*$/', $callback);
+  return preg_match('/^[a-z$_][a-z0-9_$]*$/i', $callback);
 }
