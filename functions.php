@@ -1,6 +1,10 @@
 <?php
-function is_teatime($date_array) {
-  return $date_array['weekday'] == 'Friday' && $date_array['hours'] >= '16' && $date_array['hours'] <= '18';
+function is_teatime($date_array, $global_teatime = false) {
+  if ($global_teatime) {
+    return $date_array['weekday'] == 'Thursday' && $date_array['hours'] >= '10' && $date_array['hours'] <= '12';
+  } else {
+    return $date_array['weekday'] == 'Friday' && $date_array['hours'] >= '16' && $date_array['hours'] <= '18';
+  }
 }
 
 function remaining($date_array) {

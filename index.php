@@ -8,7 +8,7 @@
 <?
 date_default_timezone_set('America/Los_Angeles');
 include('functions.php');
-$teatime = is_teatime(getdate());
+$teatime = is_teatime(getdate(), $_REQUEST['global'] == 'true');
 if ($teatime): ?>
 <div class="answer yes">Yes!</div>
 <? else: ?>
