@@ -1,13 +1,15 @@
 <?php
-function is_teatime($date_array, $global_teatime = false) {
-  if ($global_teatime) {
-    return $date_array['weekday'] == 'Thursday' && $date_array['hours'] >= '10' && $date_array['hours'] <= '12';
-  } else {
-    return $date_array['weekday'] == 'Friday' && $date_array['hours'] >= '16' && $date_array['hours'] <= '18';
+  function is_teatime(array $date_array, $global_teatime = false) {
+    $weekday = $date_array['weekday'];
+    $hours = $date_array['hours'];
+    if ($global_teatime) {
+      return $weekday === 'Thursday' && $hours >= 10 && $hours <= 12;
+    } else {
+      return $weekday === 'Friday' && $hours >= 16 && $hours <= 18;
+    }
   }
-}
 
-function remaining($date_array) {
+function remaining(array $date_array) {
   $weekday = $date_array['wday'];
   $hour = $date_array['hours'];
   $minute = $date_array['minutes'];
@@ -36,5 +38,5 @@ function remaining($date_array) {
 }
 
 function isValidJSONPCallback($callback) {
-  return preg_match('/^[a-z$_][a-z0-9_$]*$/i', $callback);
+  return strlen($callback) > 0 && preg_match('/^[a-z$_][a-z0-9_$]*$/i', $callback);
 }

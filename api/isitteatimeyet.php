@@ -1,32 +1,28 @@
 <?php
-date_default_timezone_set('America/Los_Angeles');
-include('../functions.php');
-$format = $_GET['format'] ? $_GET['format'] : 'json';
-$now = getdate();
-$teatime = is_teatime($now);
+  date_default_timezone_set('America/Los_Angeles');
+  include('../functions.php');
+  $format = array_key_exists('format', $_GET) ? $_GET['format'] : 'json';
+  $now = getdate();
+  $teatime = is_teatime($now);
 
-switch($format) {
-  case 'json':
-    header('Content-type: application/json');
-    $rsp = json_encode(array('teatime' => $teatime, 'remaining' => remaining($now)));
-    if ($_GET['callback'] && isValidJSONPCallback($_GET['callback'])) {
-      $rsp = $_GET['callback'] . "($rsp);";
+  $header = 'HTTP/1.0 406 Not Acceptable';
+  $response = 'Invalid format';
+  if ($format === 'json') {
+    $header = 'Content-type: application/json';
+    $response = json_encode(array('teatime' => $teatime, 'remaining' => remaining($now)));
+    $callback = array_key_exists('callback', $_GET) ? $_GET['callback'] : null;
+    if (isValidJSONPCallback($callback)) {
+      $response = $callback . '(' . $response . ');';
     }
-    echo $rsp;
-    break;
-  case 'xml':
-    header('Content-type: text/xml');
+  } else if ($format === 'xml') {
+    $header = 'Content-type: text/xml';
     $xml_teatime = $teatime ? 'true' : 'false';
-    $xml = <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<teatime>
-  <$xml_teatime />
-</teatime>
+    $response = <<<XML
+      <?xml version="1.0" encoding="UTF-8"?>
+      <teatime>
+        <{$xml_teatime} />
+      </teatime>
 XML;
-    echo $xml;
-    break;
-  default:
-    header("HTTP/1.0 406 Not Acceptable");
-    echo "Invalid format";
-    die();
-}
+  }
+  header($header);
+  echo $response;
