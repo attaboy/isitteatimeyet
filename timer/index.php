@@ -21,12 +21,17 @@
 <?
   date_default_timezone_set('America/Los_Angeles');
   include('../functions.php');
+  $isGlobal = $_REQUEST['global'] === 'true';
   $now = getdate();
-  $teatime = is_teatime($now);
+  $teatime = is_teatime($now, $isGlobal);
 
-  if ($teatime) {
+  if ($teatime && $isGlobal) {
 ?>
     <div class="answer yes">Yes!</div>
+<?
+  } else if ($teatime && !$isGlobal) {
+?>
+    <div class="answer rip">RIP Tea Time 2006&ndash;2012</div>
 <?
   } else {
 ?>

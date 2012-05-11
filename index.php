@@ -8,10 +8,15 @@
 <?
   date_default_timezone_set('America/Los_Angeles');
   include('functions.php');
-  $teatime = is_teatime(getdate(), $_REQUEST['global'] === 'true');
-  if ($teatime) {
+  $isGlobal = $_REQUEST['global'] === 'true';
+  $teatime = is_teatime(getdate(), $isGlobal);
+  if ($teatime && $isGlobal) {
 ?>
     <div class="answer yes">Yes!</div>
+<?
+  } else if ($teatime && !$isGlobal) {
+?>
+    <div class="answer rip">RIP Tea Time 2006&ndash;2012</div>
 <?
   } else {
 ?>

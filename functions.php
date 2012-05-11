@@ -3,7 +3,8 @@
     $weekday = $date_array['weekday'];
     $hours = $date_array['hours'];
     if ($global_teatime) {
-      return $weekday === 'Thursday' && $hours >= 10 && $hours <= 12;
+      $weekNumber = strftime($date_array[0]);
+      return $weekday === 'Thursday' && $hours >= 10 && $hours <= 12 && $weekNumber % 2;
     } else {
       return $weekday === 'Friday' && $hours >= 16 && $hours <= 18;
     }

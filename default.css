@@ -19,6 +19,13 @@ body {
   font-family: 'MarketingScriptRegular', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   letter-spacing: -1px;
 }
+.rip {
+  margin-top: 250px;
+  font-size: 75px;
+  font-weight: 500;
+  letter-spacing: -2px;
+  width: 15em;
+}
 
 div {
   margin: 50px auto;
