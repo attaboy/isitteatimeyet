@@ -25,13 +25,9 @@
   $now = getdate();
   $teatime = is_teatime($now, $isGlobal);
 
-  if ($teatime && $isGlobal) {
+  if ($teatime) {
 ?>
     <div class="answer yes">Yes!</div>
-<?
-  } else if ($teatime && !$isGlobal) {
-?>
-    <div class="answer rip">RIP Tea Time 2006&ndash;2012</div>
 <?
   } else {
 ?>
