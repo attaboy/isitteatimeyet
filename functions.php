@@ -2,11 +2,12 @@
   function is_teatime(array $date_array, $global_teatime = false) {
     $weekday = $date_array['weekday'];
     $hours = $date_array['hours'];
+    $minutes = $date_array['minutes'];
     if ($global_teatime) {
       $weekNumber = strftime($date_array[0]);
       return $weekday === 'Thursday' && $hours >= 10 && $hours <= 12 && $weekNumber % 2;
     } else {
-      return $weekday === 'Friday' && $hours >= 16 && $hours <= 18;
+      return $weekday === 'Friday' && $hours >= 16 && $minutes >= 30 && $hours <= 18;
     }
   }
 
@@ -17,17 +18,20 @@ function remaining(array $date_array) {
   $second = $date_array['seconds'];
 
   $daysLeft = 5 - $weekday;
-  if ($hour >= 16) {
+  if ($hour >= 16 && $minutes >= 30) {
     $daysLeft -= 1;
   }
   if ($daysLeft < 0) {
     $daysLeft += 7;
   }
-  $hoursLeft = 15 - $hour;
+  $hoursLeft = 16 - $hour;
   if ($hoursLeft < 0) {
     $hoursLeft += 24;
   }
-  $minutesLeft = 59 - $minute;
+  $minutesLeft = 29 - $minute;
+  if ($minutesLeft < 0) {
+    $minutesLeft += 60;
+  }
   $secondsLeft = 59 - $second;
 
   return array(
