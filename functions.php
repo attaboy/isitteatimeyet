@@ -4,16 +4,15 @@ function calculateTeatimes() {
   $globalTeatime = new DateTime('2012-09-06 10:00');
   $fridayTeatime = new DateTime('2012-09-21 16:30');
 
-  $fourWeeks = new DateInterval('P28D');
-  $globalTeatimes = array($globalTeatime->getTimestamp());
+  $globalTeatimes = array($globalTeatime->format('U'));
   for ($i = 1; $i < 120; $i++) {
-    $globalTeatime->add($fourWeeks);
-    $globalTeatimes[$i] = $globalTeatime->getTimestamp();
+    $globalTeatime->modify('+28 days');
+    $globalTeatimes[$i] = $globalTeatime->format('U');
   }
-  $fridayTeatimes = array($fridayTeatime->getTimestamp());
+  $fridayTeatimes = array($fridayTeatime->format('U'));
   for ($i = 1; $i < 120; $i++) {
-    $fridayTeatime->add($fourWeeks);
-    $fridayTeatimes[$i] = $fridayTeatime->getTimestamp();
+    $fridayTeatime->modify('+28 days');
+    $fridayTeatimes[$i] = $fridayTeatime->format('U');
   }
 
   $teatimes = $globalTeatimes + $fridayTeatimes;
@@ -23,7 +22,7 @@ function calculateTeatimes() {
 
 function secondsUntilTeatime() {
   $now = new DateTime();
-  $now = $now->getTimestamp();
+  $now = $now->format('U');
   $teatimes = calculateTeatimes();
   $remaining = 0;
   $ninetyMinutesInSeconds = 60 * 90;
