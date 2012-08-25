@@ -21,11 +21,9 @@
 <?
   date_default_timezone_set('America/Los_Angeles');
   include('../functions.php');
-  $isGlobal = $_REQUEST['global'] === 'true';
-  $now = getdate();
-  $teatime = is_teatime($now, $isGlobal);
+  $remaining = secondsUntilTeatime();
 
-  if ($teatime) {
+  if ($remaining === 0) {
 ?>
     <div class="answer yes">Yes!</div>
 <?

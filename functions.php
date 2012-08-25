@@ -1,44 +1,65 @@
 <?php
-  function is_teatime(array $date_array, $global_teatime = false) {
-    $weekday = $date_array['weekday'];
-    $hours = $date_array['hours'];
-    $minutes = $date_array['minutes'];
-    if ($global_teatime) {
-      $weekNumber = strftime($date_array[0]);
-      return $weekday === 'Thursday' && $hours >= 10 && $hours <= 12 && $weekNumber % 2;
+
+function calculateTeatimes() {
+  $globalTeatime = new DateTime('2012-09-06 10:00');
+  $fridayTeatime = new DateTime('2012-09-21 16:30');
+
+  $fourWeeks = new DateInterval('P28D');
+  $globalTeatimes = array($globalTeatime->getTimestamp());
+  for ($i = 1; $i < 120; $i++) {
+    $globalTeatime->add($fourWeeks);
+    $globalTeatimes[$i] = $globalTeatime->getTimestamp();
+  }
+  $fridayTeatimes = array($fridayTeatime->getTimestamp());
+  for ($i = 1; $i < 120; $i++) {
+    $fridayTeatime->add($fourWeeks);
+    $fridayTeatimes[$i] = $fridayTeatime->getTimestamp();
+  }
+
+  $teatimes = $globalTeatimes + $fridayTeatimes;
+  sort($teatimes);
+  return $teatimes;
+}
+
+function secondsUntilTeatime() {
+  $now = new DateTime();
+  $now = $now->getTimestamp();
+  $teatimes = calculateTeatimes();
+  $remaining = 0;
+  $ninetyMinutesInSeconds = 60 * 90;
+
+  foreach ($teatimes as &$teatime) {
+    if ($now < $teatime) {
+      // time remaining until next teatime
+      $remaining = $teatime - $now;
+      break;
+    } else if ($now >= $teatime && $now <= $teatime + $ninetyMinutesInSeconds) {
+      // it's teatime
+      break;
     } else {
-      return $weekday === 'Friday' && $hours >= 16 && $minutes >= 30 && $hours <= 18;
+      // forward to the next teatime
+      continue;
     }
   }
 
-function remaining(array $date_array) {
-  $weekday = $date_array['wday'];
-  $hour = $date_array['hours'];
-  $minute = $date_array['minutes'];
-  $second = $date_array['seconds'];
+  return $remaining;
+}
 
-  $daysLeft = 5 - $weekday;
-  if ($hour >= 16 && $minutes >= 30) {
-    $daysLeft -= 1;
-  }
-  if ($daysLeft < 0) {
-    $daysLeft += 7;
-  }
-  $hoursLeft = 16 - $hour;
-  if ($hoursLeft < 0) {
-    $hoursLeft += 24;
-  }
-  $minutesLeft = 29 - $minute;
-  if ($minutesLeft < 0) {
-    $minutesLeft += 60;
-  }
-  $secondsLeft = 59 - $second;
+function remaining($seconds) {
+  $days = floor($seconds / 86400);
+  $seconds -= $days * 86400;
+
+  $hours = floor($seconds / 3600);
+  $seconds -= $hours * 3600;
+
+  $minutes = floor($seconds / 60);
+  $seconds -= $minutes * 60;
 
   return array(
-    'days' => $daysLeft,
-    'hours' => $hoursLeft,
-    'minutes' => $minutesLeft,
-    'seconds' => $secondsLeft
+    'days' => $days,
+    'hours' => $hours,
+    'minutes' => $minutes,
+    'seconds' => $seconds
   );
 }
 
