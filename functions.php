@@ -15,7 +15,7 @@ function calculateTeatimes() {
     $fridayTeatimes[$i] = $fridayTeatime->format('U');
   }
 
-  $teatimes = $globalTeatimes + $fridayTeatimes;
+  $teatimes = array_merge($globalTeatimes, $fridayTeatimes);
   sort($teatimes);
   return $teatimes;
 }
